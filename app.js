@@ -35,15 +35,18 @@ var createNewTaskElement=function(taskString){
     label.innerText=taskString;
     label.className='todo-list__task';
 
+    listItem.className = 'todo-list__incomplete-item todo-list__item';
+
     //Each elements, needs appending
     checkBox.type="checkbox";
+    checkBox.className="todo-list__checkbox todo-list__input";
     editInput.type="text";
-    editInput.className="todo-list__task";
+    editInput.className="todo-list__task-name todo-list__task todo-list__input";
 
     editButton.innerText="Edit"; //innerText encodes special characters, HTML does not.
-    editButton.className="todo-list__edit";
+    editButton.className="todo-list__edit btn";
 
-    deleteButton.className="todo-list__delete";
+    deleteButton.className="todo-list__delete btn";
     deleteButtonImg.src='./remove.svg';
     deleteButtonImg.alt='remove';
     deleteButtonImg.className='todo-list__img-remove';
@@ -125,7 +128,7 @@ var taskCompleted=function(){
     var listItem=this.parentNode;
     completedTasksHolder.appendChild(listItem);
     bindTaskEvents(listItem, taskIncomplete);
-
+    listItem.className = 'todo-list__completed-item todo-list__item';
 }
 
 
@@ -161,7 +164,6 @@ var bindTaskEvents=function(taskListItem,checkBoxEventHandler){
     var editButton=taskListItem.querySelector("button.todo-list__edit");
     var deleteButton=taskListItem.querySelector("button.todo-list__delete");
 
-
     //Bind editTask to edit button.
     editButton.onclick=editTask;
     //Bind deleteTask to delete button.
@@ -173,22 +175,15 @@ var bindTaskEvents=function(taskListItem,checkBoxEventHandler){
 //cycle over incompleteTaskHolder ul list items
 //for each list item
 for (var i=0; i<incompleteTaskHolder.children.length;i++){
-
     //bind events to list items chldren(tasksCompleted)
     bindTaskEvents(incompleteTaskHolder.children[i],taskCompleted);
 }
-
-
-
 
 //cycle over completedTasksHolder ul list items
 for (var i=0; i<completedTasksHolder.children.length;i++){
     //bind events to list items chldren(tasksIncompleted)
     bindTaskEvents(completedTasksHolder.children[i],taskIncomplete);
 }
-
-
-
 
 // Issues with usability don't get seen until they are in front of a human tester.
 
